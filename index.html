@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css"/>
+    <title>Yet Another URL Shortener</title>
+  </head>
+  <body>
+     <div class="container">
+    <h1>🔗 URL Shortener</h1>
+
+    <div class="card">
+      <label for="longUrl">Enter long URL</label>
+      <input
+        type="url"
+        id="longUrl"
+        placeholder="https://example.com/very/long/link"
+      />
+      <button id="shortenBtn">Shorten</button>
+      <p id="error" class="error"></p>
+    </div>
+
+    <div class="card" id="resultCard" style="display:none;">
+      <h2>Short URL</h2>
+      <div class="short-box">
+        <input type="text" id="shortUrl" readonly />
+        <button id="copyBtn">Copy</button>
+      </div>
+      <p id="copyMsg" class="copy-msg"></p>
+    </div>
+
+    <div class="card">
+      <h2>How it works (demo)</h2>
+      <ul>
+        <li>Generates a random code like <code>abc123</code></li>
+        <li>Saves mapping <code>code → long URL</code> in <code>localStorage</code></li>
+        <li>When you open <code>index.html?c=abc123</code>, it redirects to the long URL</li>
+      </ul>
+    </div>
+
+    <div class="card" id="historyControls">
+     <button id="clearHistoryBtn">Clear All History</button>
+    </div>
+
+  </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
