@@ -78,6 +78,18 @@ npm run build
 ```bash
 npm run preview
 ```
+
+## Example Prompts
+
+Here are some prompts to improve this project:
+
+- "Add an expiry date field to each shortened URL so links auto-expire after a set number of days."
+- "Replace the random 6-char code with a custom alias input — let users choose their own short URL slug."
+- "Add a click counter that tracks how many times each short link has been visited and display it in the history list."
+- "Validate that the entered URL is reachable before shortening it (use a HEAD fetch request)."
+- "Export the full URL history as a CSV file from the history panel."
+
+
 ## Notes
 
 This project is meant for learning and prototyping. It uses Vite for fast local development and bundling.
