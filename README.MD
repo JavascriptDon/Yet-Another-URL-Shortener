@@ -78,6 +78,21 @@ npm run build
 ```bash
 npm run preview
 ```
+## Your First Steps with Claude
+
+[Claude Code](https://claude.ai/code) is an AI coding assistant that understands this entire codebase. You can use it to add new click counter, fix bugs, or extend the UI — all by describing what you want in plain English.
+
+### Install Claude Code
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+Then run it from this project directory:
+
+```bash
+claude
+```
 
 ## Example Prompts
 
