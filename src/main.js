@@ -8,6 +8,7 @@ const resultCard = document.getElementById("resultCard");
 const shortUrlInput = document.getElementById("shortUrl");
 const copyBtn = document.getElementById("copyBtn");
 const copyMsg = document.getElementById("copyMsg");
+const aliasInput = document.getElementById("aliasInput");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
 // clear all logic 
@@ -34,7 +35,21 @@ shortenBtn.addEventListener("click", () => {
     return;
   }
 
-  const code = generateCode();
+  const alias = aliasInput.value.trim();
+  let code;
+  if (alias) {
+    if (!/^[a-zA-Z0-9_-]+$/.test(alias)) {
+      errorEl.textContent = "Alias can only contain letters, numbers, hyphens, and underscores.";
+      return;
+    }
+    if (getMapping(alias)) {
+      errorEl.textContent = "That alias is already taken. Choose another.";
+      return;
+    }
+    code = alias;
+  } else {
+    code = generateCode();
+  }
   saveMapping(code, longUrl);
 
   const base =
@@ -42,6 +57,7 @@ shortenBtn.addEventListener("click", () => {
     window.location.pathname.replace(/index\.html$/, "");
   const shortUrl = `${base}?c=${code}`;
 
+  aliasInput.value = "";
   shortUrlInput.value = shortUrl;
   resultCard.style.display = "block";
 });
@@ -50,7 +66,7 @@ copyBtn.addEventListener("click", async () => {
   if (!shortUrlInput.value) return;
   try {
     await navigator.clipboard.writeText(shortUrlInput.value);
-    copyMsg.textContent = "Copied!";
+    copyMsg.textContent = "Copied! Note: this link expires in 5 minutes.";
   } catch {
     copyMsg.textContent = "Could not copy. Copy manually.";
   }
@@ -68,6 +84,6 @@ copyBtn.addEventListener("click", async () => {
     window.location.href = target;
   } else {
     // Optional: show message if code not found
-    errorEl.textContent = "Short link not found (maybe different browser/device).";
+    errorEl.textContent = "Short link not found or has expired.";
   }
 })();
