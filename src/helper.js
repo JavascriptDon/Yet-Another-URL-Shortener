@@ -9,16 +9,25 @@ export function generateCode(length = 6) {
   return out;
 }
 
+const TTL_MS = 5 * 60 * 1000; // 5 minutes
+
 export function saveMapping(code, url) {
   const key = "url_shortener_mappings";
   const existing = JSON.parse(localStorage.getItem(key) || "{}");
-  existing[code] = url;
+  existing[code] = { url, expiresAt: Date.now() + TTL_MS };
   localStorage.setItem(key, JSON.stringify(existing));
 }
 
 export function getMapping(code) {
   const key = "url_shortener_mappings";
   const existing = JSON.parse(localStorage.getItem(key) || "{}");
-  return existing[code] || null;
+  const entry = existing[code];
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) {
+    delete existing[code];
+    localStorage.setItem(key, JSON.stringify(existing));
+    return null;
+  }
+  return entry.url;
 }
 
