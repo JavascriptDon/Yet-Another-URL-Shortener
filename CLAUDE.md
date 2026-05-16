@@ -77,10 +77,12 @@ npm run build    # Production build → dist/
 npm run preview  # Serve dist/ locally to verify build
 ```
 
-No test runner or linter is configured. Before finishing any change:
-- Run `npm run build` and confirm zero build errors
-- Open the browser console and confirm no runtime errors
-- Manually verify the affected flow end-to-end
+## Definition of Done
+There is no test runner configured. Before finishing any change:
+
+- `npm run build` exits with zero errors
+- No runtime errors in the browser console
+- Affected flow manually verified end-to-end
 
 ## Architecture
 
@@ -100,3 +102,16 @@ Short codes are 6-character random alphanumeric strings. Mappings are stored in 
 - DOM elements cached as `const` at the top of `main.js`
 - Section comments (`// --- Section name ---`) to separate logical blocks in `main.js`
 - localStorage always accessed via `JSON.parse(localStorage.getItem(key) || "{}")` / `JSON.stringify` pattern
+
+
+## Code Review Self-Check
+
+- Before writing code that makes a non-obvious choice, pre-emptively ask "why this and not the alternative?" If you can't answer, research until you can — don't write first and justify later.
+- Don't take a bug report's suggested fix at face value; verify it's the right layer.
+- If neighboring code does something differently than you're about to, find out _why_ before deviating — its choices are often load-bearing, not stylistic.
+
+## Important Development Notes
+
+1. **Follow existing code style** - check neighboring files for patterns
+2. **Use absolute paths** - Always use absolute paths in file operations
+3. **Be humble & honest** - NEVER overstate what you got done or what actually works in commits, PRs or in messages to the user.
